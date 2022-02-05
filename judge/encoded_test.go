@@ -18,7 +18,7 @@ func TestJudgeSolutionPythonEncoded(t *testing.T) {
 	twoSumCorrect := "CmNsYXNzIFNvbHV0aW9uOgogICAgZGVmIHR3b1N1bShzZWxmLCBudW1zLCB0YXJnZXQpOgogICAgICAgIGQgPSB7fQogICAgICAgIGZvciBpIGluIHJhbmdlKDAsIGxlbihudW1zKSk6CiAgICAgICAgICAgIG4gPSBudW1zW2ldCiAgICAgICAgICAgIGsgPSB0YXJnZXQtbgogICAgICAgICAgICBpZiBrIGluIGQ6CiAgICAgICAgICAgICAgICByZXR1cm4gW2ksIGRba11dCiAgICAgICAgICAgIGRbbl0gPSBpCiAgICAgICAgcmV0dXJuIFtdCgk="
 	twoSumIncorrect := "CmNsYXNzIFNvbHV0aW9uOgogICAgZGVmIHR3b1N1bShzZWxmLCBudW1zLCB0YXJnZXQpOgogICAgICAgIHJldHVybiBudW1zCgk="
 
-	t.Run("judges correct python solution for 2sum", func(t *testing.T) {
+	t.Run("judges correct encoded python solution for 2sum", func(t *testing.T) {
 		out, err := handler.JudgeSolution(JudgeRequest{
 			Language:    codegen.Python,
 			EncodedCode: &twoSumCorrect,
@@ -38,7 +38,7 @@ func TestJudgeSolutionPythonEncoded(t *testing.T) {
 		require.Equal(t, "[2, 1]", out.Results[0].Stdout)
 	})
 
-	t.Run("judges correct python solution for 2sum with multiple test cases", func(t *testing.T) {
+	t.Run("judges correct encoded python solution for 2sum with multiple test cases", func(t *testing.T) {
 		out, err := handler.JudgeSolution(JudgeRequest{
 			Language:    codegen.Python,
 			EncodedCode: &twoSumCorrect,
@@ -78,7 +78,7 @@ func TestJudgeSolutionPythonEncoded(t *testing.T) {
 		require.False(t, out.Results[3].Passed)
 	})
 
-	t.Run("judges incorrect python solution for 2sum with multiple test cases", func(t *testing.T) {
+	t.Run("judges incorrect encoded python solution for 2sum with multiple test cases", func(t *testing.T) {
 		testCases := []*problem.TestCase{
 			{
 				Input: `[1,2,3,4,5]
