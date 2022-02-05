@@ -2,4 +2,5 @@ tmp_code_*
 test.go
 app
 compiler_lambda
+judge_lambda
 lambda

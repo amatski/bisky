@@ -20,10 +20,10 @@ func NewRequestHandler() *RequestHandler {
 }
 
 type JudgeRequest struct {
-	Language  string `json:"language"`
-	Code      string `json:"code"` // their solution
-	Problem   string `json:"problem"`
-	TestCases []*problem.TestCase
+	Language  string              `json:"language"`
+	Code      string              `json:"code"` // their solution
+	Problem   string              `json:"problem"`
+	TestCases []*problem.TestCase `json:"testcases"`
 }
 
 type JudgeResponse struct {
