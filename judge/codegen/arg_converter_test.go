@@ -115,6 +115,7 @@ func TestConvertArg(t *testing.T) {
 			for _, pod := range pods {
 				out := toArg(lang, pod)
 				assert.NotNil(t, out)
+				assert.Equal(t, pod, out.Value)
 			}
 		}
 	})
