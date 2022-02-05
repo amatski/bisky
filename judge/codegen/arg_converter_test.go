@@ -51,7 +51,7 @@ func TestConvertArg(t *testing.T) {
 		for _, test := range tests {
 			out := toArg(Cpp, test.input)
 			assert.NotNil(t, out)
-			assert.Equal(t, test.expected, out.Full())
+			assert.Equal(t, test.expected, out.Literal())
 		}
 	})
 
@@ -78,7 +78,34 @@ func TestConvertArg(t *testing.T) {
 		for _, test := range tests {
 			out := toArg(Python, test.input)
 			assert.NotNil(t, out)
-			assert.Equal(t, test.expected, out.Full())
+			assert.Equal(t, test.expected, out.Literal())
+		}
+	})
+
+	t.Run("converts list in go", func(t *testing.T) {
+		tests := []argTestCase{
+			{
+				input:    "[1,2,3]",
+				expected: "[]int{1,2,3}",
+			},
+			{
+				input:    "[1, 2,3]",
+				expected: "[]int{1, 2,3}",
+			},
+			{
+				input:    "[1]",
+				expected: "[]int{1}",
+			},
+			{
+				input:    "[]",
+				expected: "[]int{}",
+			},
+		}
+
+		for _, test := range tests {
+			out := toArg(Go, test.input)
+			assert.NotNil(t, out)
+			assert.Equal(t, test.expected, out.Literal())
 		}
 	})
 

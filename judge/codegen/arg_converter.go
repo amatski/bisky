@@ -16,8 +16,8 @@ type arg struct {
 }
 
 func toArg(language string, s string) *arg {
+	res := numberList.FindAllStringSubmatch(s, -1)
 	if language == Cpp {
-		res := numberList.FindAllStringSubmatch(s, -1)
 		if len(res) > 0 {
 			elements := res[0][1]
 			vecType := "int"
@@ -35,12 +35,28 @@ func toArg(language string, s string) *arg {
 			Value: s,
 		}
 	}
+
+	if language == Go {
+		if len(res) > 0 {
+			elements := res[0][1]
+			sliceType := "int"
+			if decimal.MatchString(s) {
+				sliceType = "float64"
+			}
+
+			return &arg{
+				Type:  fmt.Sprintf("[]%s", sliceType),
+				Value: fmt.Sprintf("{%s}", elements),
+			}
+		}
+	}
+
 	return &arg{
 		Type:  "",
 		Value: s,
 	}
 }
 
-func (a *arg) Full() string {
+func (a *arg) Literal() string {
 	return fmt.Sprintf("%s%s", a.Type, a.Value)
 }
