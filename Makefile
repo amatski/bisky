@@ -1,5 +1,5 @@
 test:
-	go test ./judge/... ./compiler/...
+	go test -v ./judge/... ./compiler/...
 
 lint: 
 	golangci-lint run
