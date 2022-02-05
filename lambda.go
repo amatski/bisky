@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 
+	"github.com/amatski/bisky/compiler"
+	"github.com/amatski/bisky/judge"
 	"github.com/aws/aws-lambda-go/lambda"
 )
 

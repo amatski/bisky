@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/amatski/algotrainer/backend/bisky/judge/codegen"
+	"github.com/amatski/bisky/judge/codegen"
 )
 
 type RequestHandler struct {

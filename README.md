@@ -48,4 +48,4 @@ Run `build.sh` then with the image id `docker run -p 9000:8080 0d02dbe8bf24`
 
 # example request
 
-`curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"Code":"print(517+1)", "Language": "Go"}' | jq`
+`curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"Code":"print(517+1)", "Language": "Python"}' | jq`

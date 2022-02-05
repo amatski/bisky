@@ -2,3 +2,4 @@ tmp_code_*
 test.go
 app
 compiler_lambda
+lambda

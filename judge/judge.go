@@ -6,13 +6,17 @@ import (
 	"strings"
 	"time"
 
-	"github.com/amatski/algotrainer/backend/bisky/compiler"
-	"github.com/amatski/algotrainer/backend/bisky/judge/codegen"
-	"github.com/amatski/algotrainer/backend/bisky/judge/problem"
+	"github.com/amatski/bisky/compiler"
+	"github.com/amatski/bisky/judge/codegen"
+	"github.com/amatski/bisky/judge/problem"
 )
 
 type RequestHandler struct {
 	Fetcher problem.ProblemDataFetcher
+}
+
+func NewRequestHandler() *RequestHandler {
+	return &RequestHandler{Fetcher: &problem.DiskFetcher{ParentDir: "data"}}
 }
 
 type JudgeRequest struct {

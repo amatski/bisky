@@ -1,1 +1,1 @@
-GOARCH=amd64 GOOS=linux go build ./... && docker build -f Dockerfile .
+GOARCH=amd64 GOOS=linux go build lambda.go && docker build -f Dockerfile .

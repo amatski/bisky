@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/amatski/algotrainer/backend/bisky/judge/codegen"
+	"github.com/amatski/bisky/judge/codegen"
 
 	"github.com/stretchr/testify/assert"
 )

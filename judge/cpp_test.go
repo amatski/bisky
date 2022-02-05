@@ -3,8 +3,8 @@ package judge
 import (
 	"testing"
 
-	"github.com/amatski/algotrainer/backend/bisky/judge/codegen"
-	"github.com/amatski/algotrainer/backend/bisky/judge/problem"
+	"github.com/amatski/bisky/judge/codegen"
+	"github.com/amatski/bisky/judge/problem"
 
 	"github.com/stretchr/testify/require"
 )
