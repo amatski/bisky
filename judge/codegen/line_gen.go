@@ -15,11 +15,23 @@ func printStatement(language string, value string) (string, error) {
 	if language == Python {
 		return fmt.Sprintf("print(%s)", value), nil
 	}
-	return "", nil
+
+	if language == Go {
+		return fmt.Sprintf("fmt.Println(%s)", value), nil
+	}
+
+	return "", ErrInvalidLanguage
 }
 
 func functionCall(name string, value string) string {
 	return fmt.Sprintf("%s(%s)", name, value)
+}
+
+func solutionCallPrefix(language string) string {
+	if language == Cpp || language == Python {
+		return "Solution()."
+	}
+	return ""
 }
 
 func varAssignment(language string, arg *arg, idx int) (string, string, error) {
@@ -31,7 +43,11 @@ func varAssignment(language string, arg *arg, idx int) (string, string, error) {
 	if language == Python {
 		return name, fmt.Sprintf("%s = %s", name, arg.Value), nil
 	}
-	return "", "", nil
+
+	if language == Go {
+		return name, fmt.Sprintf("%s := %s", name, arg.Literal()), nil
+	}
+	return "", "", ErrInvalidLanguage
 }
 
 func argsForInput(language string, input string) ([]*arg, error) {
@@ -78,7 +94,7 @@ func TestCaseCalls(testCases []*problem.TestCase, language string, problemId str
 		}
 
 		body.AddCode(secretPrintStmt)
-		fnStmt := functionCall("Solution()."+problem.SnakeCaseToCamelCase(problemId), strings.Join(argNames, ","))
+		fnStmt := functionCall(solutionCallPrefix(language)+problem.SnakeCaseToCamelCase(problemId), strings.Join(argNames, ","))
 
 		printAnswerStmt, err := printStatement(language, fnStmt)
 		if err != nil {
