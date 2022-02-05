@@ -6,6 +6,8 @@ import (
 	"strings"
 	"time"
 
+	b64 "encoding/base64"
+
 	"github.com/amatski/bisky/compiler"
 	"github.com/amatski/bisky/judge/codegen"
 	"github.com/amatski/bisky/judge/problem"
@@ -20,10 +22,11 @@ func NewRequestHandler() *RequestHandler {
 }
 
 type JudgeRequest struct {
-	Language  string              `json:"language"`
-	Code      string              `json:"code"` // their solution
-	Problem   string              `json:"problem"`
-	TestCases []*problem.TestCase `json:"testcases"`
+	Language    string              `json:"language"`
+	Code        string              `json:"code"` // their solution
+	Problem     string              `json:"problem"`
+	TestCases   []*problem.TestCase `json:"testcases"`
+	EncodedCode *string             `json:"encodedcode"` // optional base64 encoded code
 }
 
 type JudgeResponse struct {
@@ -64,7 +67,16 @@ func (h *RequestHandler) JudgeSolution(req JudgeRequest) (*JudgeResponse, error)
 	}
 
 	solution.InjectValue("tests", testCaseCode)
-	solution.InjectValue("solution", req.Code)
+
+	if req.EncodedCode != nil {
+		dec, err := b64.StdEncoding.DecodeString(*req.EncodedCode)
+		if err != nil {
+			return nil, err
+		}
+		solution.InjectValue("solution", string(dec))
+	} else {
+		solution.InjectValue("solution", req.Code)
+	}
 
 	out, err := compiler.NewRequestHandler().HandleCompileRequest(context.Background(), compiler.CompileEvent{
 		Code:     solution.Code(),
