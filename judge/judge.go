@@ -95,7 +95,6 @@ func (h *RequestHandler) JudgeSolution(req JudgeRequest) (*JudgeResponse, error)
 	}
 
 	// convert answers to []problem.TestCaseResult
-	// we would have to evaluate it against uhh expected
 	results := []problem.TestCaseResult{}
 	for idx, answerStdout := range answers {
 		// should match testCases[idx].ExpectedOutput

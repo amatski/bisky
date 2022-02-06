@@ -5,50 +5,8 @@ import (
 	"strings"
 
 	"github.com/amatski/bisky/judge/problem"
+	"github.com/pkg/errors"
 )
-
-func printStatement(language string, value string) (string, error) {
-	if language == Cpp {
-		return fmt.Sprintf("cout << %s << \"\\n\";", value), nil
-	}
-
-	if language == Python {
-		return fmt.Sprintf("print(%s)", value), nil
-	}
-
-	if language == Go {
-		return fmt.Sprintf("fmt.Println(%s)", value), nil
-	}
-
-	return "", ErrInvalidLanguage
-}
-
-func functionCall(name string, value string) string {
-	return fmt.Sprintf("%s(%s)", name, value)
-}
-
-func solutionCallPrefix(language string) string {
-	if language == Cpp || language == Python {
-		return "Solution()."
-	}
-	return ""
-}
-
-func varAssignment(language string, arg *arg, idx int) (string, string, error) {
-	name := fmt.Sprintf("%s%d", RandomName(), idx)
-	if language == Cpp {
-		return name, fmt.Sprintf("%s %s = %s;", arg.Type, name, arg.Value), nil
-	}
-
-	if language == Python {
-		return name, fmt.Sprintf("%s = %s", name, arg.Value), nil
-	}
-
-	if language == Go {
-		return name, fmt.Sprintf("%s := %s", name, arg.Literal()), nil
-	}
-	return "", "", ErrInvalidLanguage
-}
 
 func argsForInput(language string, input string) ([]*arg, error) {
 	args := strings.Split(input, "\n")
@@ -68,9 +26,15 @@ func TestCaseCalls(testCases []*problem.TestCase, language string, problemId str
 	if err != nil {
 		return "", err
 	}
+
+	generator, err := GetStatementGenerator(language)
+	if err != nil {
+		return "", errors.WithMessage(err, "getting statement generator")
+	}
+
 	tcIdx := 0
 	for _, testCase := range testCases {
-		secretPrintStmt, err := printStatement(language, fmt.Sprintf("\"%s\"", secret))
+		secretPrintStmt, err := generator.Print(fmt.Sprintf("\"%s\"", secret))
 		if err != nil {
 			return "", err
 		}
@@ -84,7 +48,7 @@ func TestCaseCalls(testCases []*problem.TestCase, language string, problemId str
 		// create an assignment for each var from the converted args
 		argNames := []string{}
 		for _, arg := range args {
-			name, assignment, err := varAssignment(language, arg, tcIdx)
+			name, assignment, err := generator.VarAssignment(arg, tcIdx)
 			if err != nil {
 				return "", err
 			}
@@ -94,9 +58,9 @@ func TestCaseCalls(testCases []*problem.TestCase, language string, problemId str
 		}
 
 		body.AddCode(secretPrintStmt)
-		fnStmt := functionCall(solutionCallPrefix(language)+problem.SnakeCaseToCamelCase(problemId), strings.Join(argNames, ","))
+		fnStmt := generator.FunctionCall(generator.SolutionCallPrefix()+problem.SnakeCaseToCamelCase(problemId), strings.Join(argNames, ","))
 
-		printAnswerStmt, err := printStatement(language, fnStmt)
+		printAnswerStmt, err := generator.Print(fnStmt)
 		if err != nil {
 			return "", err
 		}
