@@ -13,6 +13,10 @@ type argTestCase struct {
 
 func TestConvertArg(t *testing.T) {
 	t.Run("converts list to vector in c++", func(t *testing.T) {
+		generator, err := GetStatementGenerator(Cpp)
+		assert.NotNil(t, generator)
+		assert.NoError(t, err)
+
 		tests := []argTestCase{
 			{
 				input:    "[1,2,3]",
@@ -49,7 +53,7 @@ func TestConvertArg(t *testing.T) {
 		}
 
 		for _, test := range tests {
-			out := toArg(Cpp, test.input)
+			out := generator.ToArg(test.input)
 			assert.NotNil(t, out)
 			assert.Equal(t, test.expected, out.Literal())
 		}
@@ -75,8 +79,12 @@ func TestConvertArg(t *testing.T) {
 			},
 		}
 
+		generator, err := GetStatementGenerator(Python)
+		assert.NotNil(t, generator)
+		assert.NoError(t, err)
+
 		for _, test := range tests {
-			out := toArg(Python, test.input)
+			out := generator.ToArg(test.input)
 			assert.NotNil(t, out)
 			assert.Equal(t, test.expected, out.Literal())
 		}
@@ -102,8 +110,12 @@ func TestConvertArg(t *testing.T) {
 			},
 		}
 
+		generator, err := GetStatementGenerator(Go)
+		assert.NotNil(t, generator)
+		assert.NoError(t, err)
+
 		for _, test := range tests {
-			out := toArg(Go, test.input)
+			out := generator.ToArg(test.input)
 			assert.NotNil(t, out)
 			assert.Equal(t, test.expected, out.Literal())
 		}
@@ -112,8 +124,12 @@ func TestConvertArg(t *testing.T) {
 	t.Run("doesnt convert POD types", func(t *testing.T) {
 		pods := []string{"1.20f", "100", "\"string\"", "0.0"}
 		for _, lang := range Languages {
+			generator, err := GetStatementGenerator(lang)
+			assert.NotNil(t, generator)
+			assert.NoError(t, err)
+
 			for _, pod := range pods {
-				out := toArg(lang, pod)
+				out := generator.ToArg(pod)
 				assert.NotNil(t, out)
 			}
 		}

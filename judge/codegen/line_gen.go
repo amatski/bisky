@@ -8,13 +8,13 @@ import (
 	"github.com/pkg/errors"
 )
 
-func argsForInput(language string, input string) ([]*arg, error) {
+func argsForInput(generator StatementGenerator, input string) ([]*arg, error) {
 	args := strings.Split(input, "\n")
 	filteredArgs := []*arg{}
 	for _, arg := range args {
 		t := strings.TrimSpace(arg)
 		if arg != "\n" && t != "" {
-			filteredArgs = append(filteredArgs, toArg(language, t))
+			filteredArgs = append(filteredArgs, generator.ToArg(t))
 		}
 	}
 
@@ -37,7 +37,7 @@ func TestCaseCalls(testCases []*problem.TestCase, language string, problemId str
 		secretPrintStmt := generator.Print(fmt.Sprintf("\"%s\"", secret))
 
 		// clean up input into args specific for the language
-		args, err := argsForInput(language, testCase.Input)
+		args, err := argsForInput(generator, testCase.Input)
 		if err != nil {
 			return "", err
 		}

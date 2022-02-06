@@ -8,6 +8,7 @@ type StatementGenerator interface {
 	FunctionCall(name string, value string) string
 	SolutionCallPrefix() string
 	VarAssignment(arg *arg, idx int) (string, string)
+	ToArg(string) *arg
 }
 
 var (

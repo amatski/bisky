@@ -21,3 +21,10 @@ func (s *PythonStmtGenerator) VarAssignment(arg *arg, idx int) (string, string) 
 	name := fmt.Sprintf("%s%d", RandomName(), idx)
 	return name, fmt.Sprintf("%s = %s", name, arg.Value)
 }
+
+func (s *PythonStmtGenerator) ToArg(value string) *arg {
+	return &arg{
+		Type:  "",
+		Value: value,
+	}
+}

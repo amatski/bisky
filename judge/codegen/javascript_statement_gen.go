@@ -21,3 +21,10 @@ func (s *JavascriptStmtGenerator) VarAssignment(arg *arg, idx int) (string, stri
 	name := fmt.Sprintf("%s%d", RandomName(), idx)
 	return name, fmt.Sprintf("%s %s = %s", arg.Type, name, arg.Value)
 }
+
+func (s *JavascriptStmtGenerator) ToArg(value string) *arg {
+	return &arg{
+		Type:  "let",
+		Value: value,
+	}
+}
