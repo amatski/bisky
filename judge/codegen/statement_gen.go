@@ -1,10 +1,11 @@
 package codegen
 
 type StatementGenerator interface {
-	Print(value string) (string, error)
+	Print(value string) string
+	// FunctionCall just returns a function call, doesn't necessarily include a semicolon
 	FunctionCall(name string, value string) string
 	SolutionCallPrefix() string
-	VarAssignment(arg *arg, idx int) (string, string, error)
+	VarAssignment(arg *arg, idx int) (string, string)
 }
 
 var (

@@ -27,7 +27,6 @@ func (g *Code) Code() string {
 	return g.codeSb.String()
 }
 
-// AddCodeForTestCase returns what would be appended to the solution to output the solution's answer for a test case
 func (g *Code) InjectValue(key string, value string) {
 	re := regexp.MustCompile(fmt.Sprintf(`\$\{%s\}`, key))
 	replaced := re.ReplaceAllString(g.codeSb.String(), value)

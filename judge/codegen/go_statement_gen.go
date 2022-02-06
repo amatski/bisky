@@ -5,8 +5,8 @@ import "fmt"
 type GoStmtGenerator struct {
 }
 
-func (s *GoStmtGenerator) Print(value string) (string, error) {
-	return fmt.Sprintf("fmt.Println(%s)", value), nil
+func (s *GoStmtGenerator) Print(value string) string {
+	return s.FunctionCall("fmt.Println", value)
 }
 
 func (s *GoStmtGenerator) FunctionCall(name string, value string) string {
@@ -18,7 +18,7 @@ func (s *GoStmtGenerator) SolutionCallPrefix() string {
 	return ""
 }
 
-func (s *GoStmtGenerator) VarAssignment(arg *arg, idx int) (string, string, error) {
+func (s *GoStmtGenerator) VarAssignment(arg *arg, idx int) (string, string) {
 	name := fmt.Sprintf("%s%d", RandomName(), idx)
-	return name, fmt.Sprintf("%s := %s", name, arg.Literal()), nil
+	return name, fmt.Sprintf("%s := %s", name, arg.Literal())
 }
