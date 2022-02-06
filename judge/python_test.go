@@ -52,7 +52,7 @@ class Solution:
 		require.NoError(t, err)
 		require.NotNil(t, out)
 		require.True(t, out.Results[0].Passed)
-		require.Equal(t, "[2, 1]", out.Results[0].Stdout)
+		require.Equal(t, "[2,1]", out.Results[0].Stdout)
 	})
 
 	t.Run("judges correct python solution for 2sum with multiple test cases", func(t *testing.T) {
