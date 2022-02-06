@@ -1,6 +1,8 @@
 package codegen
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type GoStmtGenerator struct {
 }
@@ -24,9 +26,8 @@ func (s *GoStmtGenerator) VarAssignment(arg *arg, idx int) (string, string) {
 }
 
 func (s *GoStmtGenerator) ToArg(value string) *arg {
-	res := numberList.FindAllStringSubmatch(value, -1)
-	if len(res) > 0 {
-		elements := res[0][1]
+	list := isNumberList(value)
+	if list != nil {
 		sliceType := "int"
 		if decimal.MatchString(value) {
 			sliceType = "float64"
@@ -34,10 +35,9 @@ func (s *GoStmtGenerator) ToArg(value string) *arg {
 
 		return &arg{
 			Type:  fmt.Sprintf("[]%s", sliceType),
-			Value: fmt.Sprintf("{%s}", elements),
+			Value: fmt.Sprintf("{%s}", list.Elements),
 		}
 	}
-
 	return &arg{
 		Type:  "",
 		Value: value,

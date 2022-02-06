@@ -8,19 +8,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-func argsForInput(generator StatementGenerator, input string) ([]*arg, error) {
-	args := strings.Split(input, "\n")
-	filteredArgs := []*arg{}
-	for _, arg := range args {
-		t := strings.TrimSpace(arg)
-		if arg != "\n" && t != "" {
-			filteredArgs = append(filteredArgs, generator.ToArg(t))
-		}
-	}
-
-	return filteredArgs, nil
-}
-
 func TestCaseCalls(testCases []*problem.TestCase, language string, problemId string, secret string) (string, error) {
 	body, err := NewCode(language)
 	if err != nil {
