@@ -98,7 +98,7 @@ func (h *RequestHandler) JudgeSolution(req JudgeRequest) (*JudgeResponse, error)
 	// the answers array now has to be converted depending on the language
 	// and output type
 	for idx := range answers {
-		answers[idx] = codegen.ConvertAnswer(req.Language, req.OutputType, answers[idx])
+		answers[idx] = codegen.ConvertType(req.OutputType, answers[idx])
 	}
 
 	// convert answers to []problem.TestCaseResult
@@ -107,7 +107,7 @@ func (h *RequestHandler) JudgeSolution(req JudgeRequest) (*JudgeResponse, error)
 		// should match testCases[idx].ExpectedOutput
 		passed := false
 		for _, expected := range req.TestCases[idx].ExpectedOutput {
-			if expected == answerStdout {
+			if codegen.ConvertType(req.OutputType, expected) == answerStdout {
 				passed = true
 				break
 			}

@@ -28,9 +28,10 @@ func TestJudgeSolutionJavascript(t *testing.T) {
 
 	t.Run("judges correct javascript solution for 2sum", func(t *testing.T) {
 		out, err := handler.JudgeSolution(JudgeRequest{
-			Language: codegen.Javascript,
-			Code:     twoSumCorrect,
-			Problem:  "two_sum",
+			Language:   codegen.Javascript,
+			Code:       twoSumCorrect,
+			Problem:    "two_sum",
+			OutputType: codegen.Integers,
 			TestCases: []*problem.TestCase{
 				{
 					Input: `[1,2,3,4,5]
@@ -49,7 +50,7 @@ func TestJudgeSolutionJavascript(t *testing.T) {
 		require.NoError(t, err)
 		require.NotNil(t, out)
 		require.True(t, out.Results[0].Passed)
-		require.Equal(t, "[ 1, 2, 3, 4, 5 ]", out.Results[0].Stdout)
+		require.Equal(t, "[1,2,3,4,5]", out.Results[0].Stdout)
 		require.True(t, out.Results[1].Passed)
 	})
 

@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func ConvertAnswer(language string, outputType string, answer string) string {
+func ConvertType(outputType string, answer string) string {
 	if outputType != Integers && outputType != Doubles {
 		return answer
 	}
