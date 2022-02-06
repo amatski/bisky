@@ -8,6 +8,7 @@ type StatementGenerator interface {
 	FunctionCall(name string, value string) string
 	SolutionCallPrefix() string
 	VarAssignment(arg *arg, idx int) (string, string)
+	// Arg is the default argument for an unmatched input
 	Arg(string) *arg
 	// ArgFromNumberList generates an arg (type, value) from a number list
 	// we use a number list because that's one of the primitives in
