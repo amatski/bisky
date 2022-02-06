@@ -6,13 +6,15 @@ import (
 	"strings"
 )
 
-func ConvertType(outputType string, answer string) string {
+// ConvertType just converts the given value depending on the
+// output type. currently only used for lists
+func ConvertType(outputType string, value string) string {
 	if outputType != Integers && outputType != Doubles {
-		return answer
+		return value
 	}
 
 	re := regexp.MustCompile(`((-|)\d+(\.\d+|))`)
-	nums := re.FindAllString(answer, -1)
+	nums := re.FindAllString(value, -1)
 
 	return fmt.Sprintf("[%s]", strings.Join(nums, ","))
 }
