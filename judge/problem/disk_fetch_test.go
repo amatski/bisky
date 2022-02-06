@@ -14,9 +14,4 @@ func TestDiskFetch(t *testing.T) {
 	assert.NoError(t, err)
 	expected := "class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        "
 	assert.Equal(t, expected, codeTemplate)
-
-	hookTemplate, err := d.HookTemplate(problemId, ext)
-	assert.NoError(t, err)
-	expected = "${solution}\n${tests}\n"
-	assert.Equal(t, expected, hookTemplate)
 }
