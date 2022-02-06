@@ -34,10 +34,7 @@ func TestCaseCalls(testCases []*problem.TestCase, language string, problemId str
 
 	tcIdx := 0
 	for _, testCase := range testCases {
-		secretPrintStmt, err := generator.Print(fmt.Sprintf("\"%s\"", secret))
-		if err != nil {
-			return "", err
-		}
+		secretPrintStmt := generator.Print(fmt.Sprintf("\"%s\"", secret))
 
 		// clean up input into args specific for the language
 		args, err := argsForInput(language, testCase.Input)
@@ -48,10 +45,7 @@ func TestCaseCalls(testCases []*problem.TestCase, language string, problemId str
 		// create an assignment for each var from the converted args
 		argNames := []string{}
 		for _, arg := range args {
-			name, assignment, err := generator.VarAssignment(arg, tcIdx)
-			if err != nil {
-				return "", err
-			}
+			name, assignment := generator.VarAssignment(arg, tcIdx)
 			body.AddCode(assignment)
 			argNames = append(argNames, name)
 			tcIdx++
@@ -60,10 +54,7 @@ func TestCaseCalls(testCases []*problem.TestCase, language string, problemId str
 		body.AddCode(secretPrintStmt)
 		fnStmt := generator.FunctionCall(generator.SolutionCallPrefix()+problem.SnakeCaseToCamelCase(problemId), strings.Join(argNames, ","))
 
-		printAnswerStmt, err := generator.Print(fnStmt)
-		if err != nil {
-			return "", err
-		}
+		printAnswerStmt := generator.Print(fnStmt)
 		body.AddCode(printAnswerStmt)
 	}
 	return body.Code(), nil

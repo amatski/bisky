@@ -51,6 +51,13 @@ func toArg(language string, s string) *arg {
 		}
 	}
 
+	if language == Javascript {
+		return &arg{
+			Type:  "let",
+			Value: s,
+		}
+	}
+
 	return &arg{
 		Type:  "",
 		Value: s,
