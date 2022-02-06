@@ -6,7 +6,7 @@ type JavascriptStmtGenerator struct {
 }
 
 func (s *JavascriptStmtGenerator) Print(value string) string {
-	return fmt.Sprintf("console.log(%s)", value)
+	return fmt.Sprintf("console.log(%s);", value)
 }
 
 func (s *JavascriptStmtGenerator) FunctionCall(name string, value string) string {

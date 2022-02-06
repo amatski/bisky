@@ -38,12 +38,19 @@ func TestJudgeSolutionJavascript(t *testing.T) {
 				`,
 					ExpectedOutput: []string{`[ 1, 2, 3, 4, 5 ]`},
 				},
+				{
+					Input: `[1,2,3,4,5,6]
+					5
+				`,
+					ExpectedOutput: []string{`[ 1, 2, 3, 4, 5, 6 ]`},
+				},
 			},
 		})
 		require.NoError(t, err)
 		require.NotNil(t, out)
 		require.True(t, out.Results[0].Passed)
 		require.Equal(t, "[ 1, 2, 3, 4, 5 ]", out.Results[0].Stdout)
+		require.True(t, out.Results[1].Passed)
 	})
 
 }
