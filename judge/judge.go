@@ -49,9 +49,9 @@ func parseAnswers(stdout string, secret string, numTests int) []string {
 
 // JudgeSolution judges the submitted solution
 func (h *RequestHandler) JudgeSolution(req JudgeRequest) (*JudgeResponse, error) {
-	hookTemplate, err := h.Fetcher.HookTemplate(req.Problem, codegen.LanguageToExt[req.Language])
-	if err != nil {
-		return nil, err
+	hookTemplate, ok := codegen.LanguageToTemplate[req.Language]
+	if !ok {
+		return nil, errors.New("missing template")
 	}
 
 	solution, err := codegen.NewCode(req.Language)

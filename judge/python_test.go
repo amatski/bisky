@@ -36,9 +36,10 @@ class Solution:
 
 	t.Run("judges correct python solution for 2sum", func(t *testing.T) {
 		out, err := handler.JudgeSolution(JudgeRequest{
-			Language: codegen.Python,
-			Code:     twoSumCorrect,
-			Problem:  "two_sum",
+			Language:   codegen.Python,
+			Code:       twoSumCorrect,
+			Problem:    "two_sum",
+			OutputType: codegen.Integers,
 			TestCases: []*problem.TestCase{
 				{
 					Input: `[1,2,3,4,5]
@@ -51,14 +52,15 @@ class Solution:
 		require.NoError(t, err)
 		require.NotNil(t, out)
 		require.True(t, out.Results[0].Passed)
-		require.Equal(t, "[2, 1]", out.Results[0].Stdout)
+		require.Equal(t, "[2,1]", out.Results[0].Stdout)
 	})
 
 	t.Run("judges correct python solution for 2sum with multiple test cases", func(t *testing.T) {
 		out, err := handler.JudgeSolution(JudgeRequest{
-			Language: codegen.Python,
-			Code:     twoSumCorrect,
-			Problem:  "two_sum",
+			Language:   codegen.Python,
+			Code:       twoSumCorrect,
+			Problem:    "two_sum",
+			OutputType: codegen.Integers,
 			TestCases: []*problem.TestCase{
 				{
 					Input: `[1,2,3,4,5]
@@ -123,10 +125,11 @@ class Solution:
 			},
 		}
 		out, err := handler.JudgeSolution(JudgeRequest{
-			Language:  codegen.Python,
-			Code:      twoSumIncorrect,
-			Problem:   "two_sum",
-			TestCases: testCases,
+			Language:   codegen.Python,
+			Code:       twoSumIncorrect,
+			Problem:    "two_sum",
+			OutputType: codegen.Integers,
+			TestCases:  testCases,
 		})
 		require.NoError(t, err)
 		require.NotNil(t, out)

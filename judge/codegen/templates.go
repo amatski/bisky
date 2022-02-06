@@ -1,3 +1,7 @@
+package codegen
+
+const (
+	CppTemplate = `
 #include <iostream>
 #include <vector>
 #include <map>
@@ -26,3 +30,33 @@ int main() {
     ${tests}
     return 0;
 }
+	`
+	GoTemplate = `
+package main
+
+import "fmt"
+
+${solution}
+
+func main() {
+	${tests}
+}
+	`
+	JsTemplate = `
+${solution}
+${tests}
+	`
+	PyTemplate = `
+${solution}
+${tests}
+	`
+)
+
+var (
+	LanguageToTemplate = map[string]string{
+		Python:     PyTemplate,
+		Cpp:        CppTemplate,
+		Javascript: JsTemplate,
+		Go:         GoTemplate,
+	}
+)
