@@ -27,6 +27,8 @@ func TestInputRegex(t *testing.T) {
 	assert.NotNil(t, isNumberList("[ 0, -1, 2 ]"))
 	assert.Nil(t, isNumberList("[ 0, -1, +2 ]"))
 	assert.Equal(t, " 0, -1, 2 ", isNumberList("[ 0, -1, 2 ]").Elements)
+	assert.Equal(t, "-1", isNumberList("[-1]").Elements)
+	assert.Equal(t, "-1,-1", isNumberList("[-1,-1]").Elements)
 	assert.Nil(t, isNumberList("[ 0, -1, - 2 ]"))
 	assert.Nil(t, isNumberList("[ 0, -1, 2., 3 ]"))
 }
