@@ -22,21 +22,21 @@ func (s *CppStmtGenerator) VarAssignment(arg *arg, idx int) (string, string) {
 	return name, fmt.Sprintf("%s %s = %s;", arg.Type, name, arg.Value)
 }
 
-func (s *CppStmtGenerator) ToArg(value string) *arg {
-	list := isNumberList(value)
-	if list != nil {
-		vecType := "int"
-		if decimal.MatchString(value) {
-			vecType = "double"
-		}
-
-		return &arg{
-			Type:  fmt.Sprintf("vector<%s>", vecType),
-			Value: fmt.Sprintf("{%s}", list.Elements),
-		}
-	}
+func (s *CppStmtGenerator) Arg(value string) *arg {
 	return &arg{
 		Type:  "auto",
 		Value: value,
+	}
+}
+
+func (s *CppStmtGenerator) ArgFromNumberList(list *NumberList) *arg {
+	vecType := "int"
+	if list.Decimal {
+		vecType = "double"
+	}
+
+	return &arg{
+		Type:  fmt.Sprintf("vector<%s>", vecType),
+		Value: fmt.Sprintf("{%s}", list.Elements),
 	}
 }

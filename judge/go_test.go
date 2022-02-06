@@ -23,22 +23,23 @@ func twoSum(nums []int, target int) []int {
 
 	t.Run("judges correct go solution for 2sum", func(t *testing.T) {
 		out, err := handler.JudgeSolution(JudgeRequest{
-			Language: codegen.Go,
-			Code:     twoSumIncorrect,
-			Problem:  "two_sum",
+			Language:   codegen.Go,
+			Code:       twoSumIncorrect,
+			Problem:    "two_sum",
+			OutputType: codegen.Integers,
 			TestCases: []*problem.TestCase{
 				{
 					Input: `[1,2,3,4,5]
 					5
 				`,
-					ExpectedOutput: []string{`[5 -4]`},
+					ExpectedOutput: []string{`[5,-4]`},
 				},
 			},
 		})
 		require.NoError(t, err)
 		require.NotNil(t, out)
 		require.True(t, out.Results[0].Passed)
-		require.Equal(t, "[5 -4]", out.Results[0].Stdout)
+		require.Equal(t, "[5,-4]", out.Results[0].Stdout)
 	})
 
 }
