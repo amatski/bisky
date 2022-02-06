@@ -23,12 +23,8 @@ func (s *CppStmtGenerator) VarAssignment(arg *arg, idx int) (string, string) {
 }
 
 func (s *CppStmtGenerator) ToArg(value string) *arg {
-	res := numberList.FindAllStringSubmatch(value, -1)
-	if len(res) > 0 {
-		elements := res[0][1]
-		if len(res[0]) >= 10 {
-			elements += res[0][9]
-		}
+	list := isNumberList(value)
+	if list != nil {
 		vecType := "int"
 		if decimal.MatchString(value) {
 			vecType = "double"
@@ -36,7 +32,7 @@ func (s *CppStmtGenerator) ToArg(value string) *arg {
 
 		return &arg{
 			Type:  fmt.Sprintf("vector<%s>", vecType),
-			Value: fmt.Sprintf("{%s}", elements),
+			Value: fmt.Sprintf("{%s}", list.Elements),
 		}
 	}
 	return &arg{

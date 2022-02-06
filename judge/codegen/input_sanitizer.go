@@ -12,8 +12,22 @@ var (
 	stringList = regexp.MustCompile(`\[(((\s)*("[^"]+")(\s)*(,)*)*)((\s)*("[^"]+")(\s)*)\]`)
 )
 
-func isNumberList(value string) bool {
-	return numberList.MatchString(value)
+type NumberList struct {
+	Elements string
+}
+
+func isNumberList(value string) *NumberList {
+	res := numberList.FindAllStringSubmatch(value, -1)
+	if len(res) > 0 {
+		elements := res[0][1]
+		if len(res[0]) >= 10 {
+			elements += res[0][9]
+		}
+		return &NumberList{
+			Elements: elements,
+		}
+	}
+	return nil
 }
 
 func isStringList(value string) bool {

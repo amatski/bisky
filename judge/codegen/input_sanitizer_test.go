@@ -7,12 +7,12 @@ import (
 )
 
 func TestInputRegex(t *testing.T) {
-	assert.True(t, isNumberList("[0,1,2]"))
-	assert.True(t, isNumberList("[0, 1,2]"))
-	assert.True(t, isNumberList("[ 0, 1,2]"))
-	assert.True(t, isNumberList("[ 0, 1, 2]"))
-	assert.True(t, isNumberList("[ 0, 1, 2 ]"))
-	assert.True(t, isNumberList("[ 0, 1.5, 2 ]"))
-	assert.True(t, isNumberList("[ 1.5, 1.5, 2.3 ]"))
-	assert.False(t, isNumberList("[ 0, 1, 2, ]"))
+	assert.NotNil(t, isNumberList("[0,1,2]"))
+	assert.NotNil(t, isNumberList("[0, 1,2]"))
+	assert.NotNil(t, isNumberList("[ 0, 1,2]"))
+	assert.NotNil(t, isNumberList("[ 0, 1, 2]"))
+	assert.NotNil(t, isNumberList("[ 0, 1, 2 ]"))
+	assert.NotNil(t, isNumberList("[ 0, 1.5, 2 ]"))
+	assert.NotNil(t, isNumberList("[ 1.5, 1.5, 2.3 ]"))
+	assert.Nil(t, isNumberList("[ 0, 1, 2, ]"))
 }
