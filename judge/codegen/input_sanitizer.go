@@ -7,7 +7,7 @@ import (
 
 var (
 	// regex that matches a list of numbers
-	numberList = regexp.MustCompile(`\[(((\s)*(\d+(\.|)(\d+|)(\s)*)(,)*)*)((\s)*(\d+(\.|)(\d+|)(\s)*))\]`)
+	numberList = regexp.MustCompile(`\[((((\s)*(\d+(\.\d+|)(\s)*)(,)*)*)((\s)*(\d+(\.|)(\d+|)(\s)*)))|(\s)*\]`)
 	decimal    = regexp.MustCompile(`(\d+\.\d*)`)
 	stringList = regexp.MustCompile(`\[(((\s)*("[^"]+")(\s)*(,)*)*)((\s)*("[^"]+")(\s)*)\]`)
 )
@@ -20,9 +20,7 @@ func isNumberList(value string) *NumberList {
 	res := numberList.FindAllStringSubmatch(value, -1)
 	if len(res) > 0 {
 		elements := res[0][1]
-		if len(res[0]) >= 10 {
-			elements += res[0][9]
-		}
+
 		return &NumberList{
 			Elements: elements,
 		}

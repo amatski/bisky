@@ -36,7 +36,7 @@ func TestConvertArg(t *testing.T) {
 			},
 			{
 				input:    "[]",
-				expected: "auto[]",
+				expected: "vector<int>{}",
 			},
 			{
 				input:    "[1,2.5,3]",
@@ -106,7 +106,7 @@ func TestConvertArg(t *testing.T) {
 			},
 			{
 				input:    "[]",
-				expected: "[]",
+				expected: "[]int{}",
 			},
 		}
 
