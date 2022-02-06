@@ -7,7 +7,7 @@ import (
 
 var (
 	// regex that matches a list of numbers
-	numberList = regexp.MustCompile(`\[((((\s)*(\+|-|)(\d+(\.\d+|)(\s)*)(,)*)*)((\s)*(\d+(\.|)(\d+|)(\s)*)))|(\s)*\]`)
+	numberList = regexp.MustCompile(`\[(((((\s)*(-|)(\d+(\.\d+|)(\s)*)(,)*)*)((\s)*((-|)\d+(\.\d+|)(\s)*)))|(\s)*)\]`)
 	decimal    = regexp.MustCompile(`(\d+\.\d*)`)
 	//stringList = regexp.MustCompile(`\[(((\s)*("[^"]+")(\s)*(,)*)*)((\s)*("[^"]+")(\s)*)\]`)
 )
