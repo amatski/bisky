@@ -23,20 +23,20 @@ func (s *CppStmtGenerator) VarAssignment(arg *arg, idx int) (string, string) {
 }
 
 func (s *CppStmtGenerator) ToArg(value string) *arg {
-	list := isNumberList(value)
-	if list != nil {
-		vecType := "int"
-		if decimal.MatchString(value) {
-			vecType = "double"
-		}
-
-		return &arg{
-			Type:  fmt.Sprintf("vector<%s>", vecType),
-			Value: fmt.Sprintf("{%s}", list.Elements),
-		}
-	}
 	return &arg{
 		Type:  "auto",
 		Value: value,
+	}
+}
+
+func (s *CppStmtGenerator) ToArgFromNumberList(list *NumberList) *arg {
+	vecType := "int"
+	if list.Decimal {
+		vecType = "double"
+	}
+
+	return &arg{
+		Type:  fmt.Sprintf("vector<%s>", vecType),
+		Value: fmt.Sprintf("{%s}", list.Elements),
 	}
 }

@@ -14,6 +14,7 @@ var (
 
 type NumberList struct {
 	Elements string
+	Decimal  bool
 }
 
 func isNumberList(value string) *NumberList {
@@ -23,6 +24,7 @@ func isNumberList(value string) *NumberList {
 
 		return &NumberList{
 			Elements: elements,
+			Decimal:  decimal.MatchString(elements),
 		}
 	}
 	return nil
@@ -31,10 +33,17 @@ func isNumberList(value string) *NumberList {
 func argsForInput(generator StatementGenerator, input string) ([]*arg, error) {
 	args := strings.Split(input, "\n")
 	filteredArgs := []*arg{}
-	for _, arg := range args {
-		t := strings.TrimSpace(arg)
-		if arg != "\n" && t != "" {
-			filteredArgs = append(filteredArgs, generator.ToArg(t))
+	for _, argg := range args {
+		t := strings.TrimSpace(argg)
+		if argg != "\n" && t != "" {
+			list := isNumberList(t)
+			var a *arg
+			if list != nil {
+				a = generator.ToArgFromNumberList(list)
+			} else {
+				a = generator.ToArg(t)
+			}
+			filteredArgs = append(filteredArgs, a)
 		}
 	}
 

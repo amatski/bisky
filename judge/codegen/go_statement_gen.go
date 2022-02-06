@@ -26,20 +26,20 @@ func (s *GoStmtGenerator) VarAssignment(arg *arg, idx int) (string, string) {
 }
 
 func (s *GoStmtGenerator) ToArg(value string) *arg {
-	list := isNumberList(value)
-	if list != nil {
-		sliceType := "int"
-		if decimal.MatchString(value) {
-			sliceType = "float64"
-		}
-
-		return &arg{
-			Type:  fmt.Sprintf("[]%s", sliceType),
-			Value: fmt.Sprintf("{%s}", list.Elements),
-		}
-	}
 	return &arg{
 		Type:  "",
 		Value: value,
+	}
+}
+
+func (s *GoStmtGenerator) ToArgFromNumberList(list *NumberList) *arg {
+	sliceType := "int"
+	if list.Decimal {
+		sliceType = "float64"
+	}
+
+	return &arg{
+		Type:  fmt.Sprintf("[]%s", sliceType),
+		Value: fmt.Sprintf("{%s}", list.Elements),
 	}
 }

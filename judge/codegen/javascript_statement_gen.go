@@ -28,3 +28,10 @@ func (s *JavascriptStmtGenerator) ToArg(value string) *arg {
 		Value: value,
 	}
 }
+
+func (s *JavascriptStmtGenerator) ToArgFromNumberList(list *NumberList) *arg {
+	return &arg{
+		Type:  "let",
+		Value: fmt.Sprintf("[%s]", list.Elements),
+	}
+}

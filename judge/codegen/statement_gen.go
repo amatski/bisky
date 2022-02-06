@@ -9,6 +9,8 @@ type StatementGenerator interface {
 	SolutionCallPrefix() string
 	VarAssignment(arg *arg, idx int) (string, string)
 	ToArg(string) *arg
+	ToArgFromNumberList(*NumberList) *arg
+	//ToStringList(*StringList) *arg
 }
 
 var (

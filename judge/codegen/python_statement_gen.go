@@ -28,3 +28,10 @@ func (s *PythonStmtGenerator) ToArg(value string) *arg {
 		Value: value,
 	}
 }
+
+func (s *PythonStmtGenerator) ToArgFromNumberList(list *NumberList) *arg {
+	return &arg{
+		Type:  "",
+		Value: fmt.Sprintf("[%s]", list.Elements),
+	}
+}
