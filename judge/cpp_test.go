@@ -15,6 +15,15 @@ func TestJudgeSolutionCpp(t *testing.T) {
 		Fetcher: &f,
 	}
 
+	addOneCorrect := `
+	class Solution {
+		public:
+			int addOne(int value) {
+				return value + 1;
+			}
+	};
+	`
+
 	twoSumIncorrect := `
 	class Solution {
 		public:
@@ -95,6 +104,28 @@ func TestJudgeSolutionCpp(t *testing.T) {
 			Code:       twoSumCorrect,
 			Problem:    "two_sum",
 			OutputType: codegen.Integers,
+			TestCases:  testCases,
+		})
+		require.NoError(t, err)
+		require.NotNil(t, out)
+		for _, res := range out.Results {
+			require.True(t, res.Passed)
+		}
+	})
+
+	t.Run("c++ judges addOne correctly", func(t *testing.T) {
+		testCases := []*problem.TestCase{
+			{
+				Input:          `5`,
+				ExpectedOutput: []string{`6`},
+			},
+		}
+
+		out, err := handler.JudgeSolution(JudgeRequest{
+			Language:   codegen.Cpp,
+			Code:       addOneCorrect,
+			Problem:    "addOne",
+			OutputType: codegen.Integer,
 			TestCases:  testCases,
 		})
 		require.NoError(t, err)
