@@ -47,9 +47,10 @@ func TestJudgeSolutionCpp(t *testing.T) {
 	`
 	t.Run("judges incorrect c++ solution for 2sum correctly formatted", func(t *testing.T) {
 		out, err := handler.JudgeSolution(JudgeRequest{
-			Language: codegen.Cpp,
-			Code:     twoSumIncorrect,
-			Problem:  "two_sum",
+			Language:   codegen.Cpp,
+			Code:       twoSumIncorrect,
+			Problem:    "two_sum",
+			OutputType: codegen.Integers,
 			TestCases: []*problem.TestCase{
 				{
 					Input: `
@@ -90,10 +91,11 @@ func TestJudgeSolutionCpp(t *testing.T) {
 		}
 
 		out, err := handler.JudgeSolution(JudgeRequest{
-			Language:  codegen.Cpp,
-			Code:      twoSumCorrect,
-			Problem:   "two_sum",
-			TestCases: testCases,
+			Language:   codegen.Cpp,
+			Code:       twoSumCorrect,
+			Problem:    "two_sum",
+			OutputType: codegen.Integers,
+			TestCases:  testCases,
 		})
 		require.NoError(t, err)
 		require.NotNil(t, out)
