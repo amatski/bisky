@@ -27,6 +27,7 @@ type JudgeRequest struct {
 	Problem     string              `json:"problem"`
 	TestCases   []*problem.TestCase `json:"testcases"`
 	EncodedCode *string             `json:"encodedcode"` // optional base64 encoded code
+	OutputType  string              `json:"outputype"`
 }
 
 type JudgeResponse struct {
@@ -92,6 +93,12 @@ func (h *RequestHandler) JudgeSolution(req JudgeRequest) (*JudgeResponse, error)
 
 	if len(answers) != len(req.TestCases) {
 		return nil, errors.New("answers and test cases are not 1:1")
+	}
+
+	// the answers array now has to be converted depending on the language
+	// and output type
+	for idx := range answers {
+		answers[idx] = codegen.ConvertAnswer(req.Language, req.OutputType, answers[idx])
 	}
 
 	// convert answers to []problem.TestCaseResult

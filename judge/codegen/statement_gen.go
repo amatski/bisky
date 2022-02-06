@@ -14,7 +14,6 @@ type StatementGenerator interface {
 	// we use a number list because that's one of the primitives in
 	// our inputs
 	ArgFromNumberList(*NumberList) *arg
-	//ToStringList(*StringList) *arg
 }
 
 var (
