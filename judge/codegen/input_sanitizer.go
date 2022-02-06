@@ -9,7 +9,7 @@ var (
 	// regex that matches a list of numbers
 	numberList = regexp.MustCompile(`\[((((\s)*(\d+(\.\d+|)(\s)*)(,)*)*)((\s)*(\d+(\.|)(\d+|)(\s)*)))|(\s)*\]`)
 	decimal    = regexp.MustCompile(`(\d+\.\d*)`)
-	stringList = regexp.MustCompile(`\[(((\s)*("[^"]+")(\s)*(,)*)*)((\s)*("[^"]+")(\s)*)\]`)
+	//stringList = regexp.MustCompile(`\[(((\s)*("[^"]+")(\s)*(,)*)*)((\s)*("[^"]+")(\s)*)\]`)
 )
 
 type NumberList struct {
@@ -26,10 +26,6 @@ func isNumberList(value string) *NumberList {
 		}
 	}
 	return nil
-}
-
-func isStringList(value string) bool {
-	return stringList.MatchString(value)
 }
 
 func argsForInput(generator StatementGenerator, input string) ([]*arg, error) {
