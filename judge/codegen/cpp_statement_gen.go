@@ -22,14 +22,14 @@ func (s *CppStmtGenerator) VarAssignment(arg *arg, idx int) (string, string) {
 	return name, fmt.Sprintf("%s %s = %s;", arg.Type, name, arg.Value)
 }
 
-func (s *CppStmtGenerator) ToArg(value string) *arg {
+func (s *CppStmtGenerator) Arg(value string) *arg {
 	return &arg{
 		Type:  "auto",
 		Value: value,
 	}
 }
 
-func (s *CppStmtGenerator) ToArgFromNumberList(list *NumberList) *arg {
+func (s *CppStmtGenerator) ArgFromNumberList(list *NumberList) *arg {
 	vecType := "int"
 	if list.Decimal {
 		vecType = "double"

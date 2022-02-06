@@ -55,7 +55,7 @@ func TestConvertArg(t *testing.T) {
 		for _, test := range tests {
 			list := isNumberList(test.input)
 			assert.NotNil(t, list)
-			out := generator.ToArgFromNumberList(list)
+			out := generator.ArgFromNumberList(list)
 			assert.NotNil(t, out)
 			assert.Equal(t, test.expected, out.Literal())
 		}
@@ -88,7 +88,7 @@ func TestConvertArg(t *testing.T) {
 		for _, test := range tests {
 			list := isNumberList(test.input)
 			assert.NotNil(t, list)
-			out := generator.ToArgFromNumberList(list)
+			out := generator.ArgFromNumberList(list)
 			assert.NotNil(t, out)
 			assert.Equal(t, test.expected, out.Literal())
 		}
@@ -121,7 +121,7 @@ func TestConvertArg(t *testing.T) {
 		for _, test := range tests {
 			list := isNumberList(test.input)
 			assert.NotNil(t, list)
-			out := generator.ToArgFromNumberList(list)
+			out := generator.ArgFromNumberList(list)
 			assert.NotNil(t, out)
 			assert.Equal(t, test.expected, out.Literal())
 		}
@@ -135,7 +135,7 @@ func TestConvertArg(t *testing.T) {
 			assert.NoError(t, err)
 
 			for _, pod := range pods {
-				out := generator.ToArg(pod)
+				out := generator.Arg(pod)
 				assert.NotNil(t, out)
 			}
 		}

@@ -39,9 +39,9 @@ func argsForInput(generator StatementGenerator, input string) ([]*arg, error) {
 			list := isNumberList(t)
 			var a *arg
 			if list != nil {
-				a = generator.ToArgFromNumberList(list)
+				a = generator.ArgFromNumberList(list)
 			} else {
-				a = generator.ToArg(t)
+				a = generator.Arg(t)
 			}
 			filteredArgs = append(filteredArgs, a)
 		}

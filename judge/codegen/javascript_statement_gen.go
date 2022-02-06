@@ -22,14 +22,14 @@ func (s *JavascriptStmtGenerator) VarAssignment(arg *arg, idx int) (string, stri
 	return name, fmt.Sprintf("%s %s = %s", arg.Type, name, arg.Value)
 }
 
-func (s *JavascriptStmtGenerator) ToArg(value string) *arg {
+func (s *JavascriptStmtGenerator) Arg(value string) *arg {
 	return &arg{
 		Type:  "let",
 		Value: value,
 	}
 }
 
-func (s *JavascriptStmtGenerator) ToArgFromNumberList(list *NumberList) *arg {
+func (s *JavascriptStmtGenerator) ArgFromNumberList(list *NumberList) *arg {
 	return &arg{
 		Type:  "let",
 		Value: fmt.Sprintf("[%s]", list.Elements),

@@ -22,14 +22,14 @@ func (s *PythonStmtGenerator) VarAssignment(arg *arg, idx int) (string, string) 
 	return name, fmt.Sprintf("%s = %s", name, arg.Value)
 }
 
-func (s *PythonStmtGenerator) ToArg(value string) *arg {
+func (s *PythonStmtGenerator) Arg(value string) *arg {
 	return &arg{
 		Type:  "",
 		Value: value,
 	}
 }
 
-func (s *PythonStmtGenerator) ToArgFromNumberList(list *NumberList) *arg {
+func (s *PythonStmtGenerator) ArgFromNumberList(list *NumberList) *arg {
 	return &arg{
 		Type:  "",
 		Value: fmt.Sprintf("[%s]", list.Elements),

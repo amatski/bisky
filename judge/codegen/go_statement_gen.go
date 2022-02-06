@@ -25,14 +25,14 @@ func (s *GoStmtGenerator) VarAssignment(arg *arg, idx int) (string, string) {
 	return name, fmt.Sprintf("%s := %s", name, arg.Literal())
 }
 
-func (s *GoStmtGenerator) ToArg(value string) *arg {
+func (s *GoStmtGenerator) Arg(value string) *arg {
 	return &arg{
 		Type:  "",
 		Value: value,
 	}
 }
 
-func (s *GoStmtGenerator) ToArgFromNumberList(list *NumberList) *arg {
+func (s *GoStmtGenerator) ArgFromNumberList(list *NumberList) *arg {
 	sliceType := "int"
 	if list.Decimal {
 		sliceType = "float64"
