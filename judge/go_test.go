@@ -1,7 +1,6 @@
 package judge
 
 import (
-	"log"
 	"testing"
 
 	"github.com/amatski/bisky/judge/codegen"
@@ -39,7 +38,6 @@ func twoSum(nums []int, target int) []int {
 		})
 		require.NoError(t, err)
 		require.NotNil(t, out)
-		log.Println(out.Results[0].Stdout)
 		require.True(t, out.Results[0].Passed)
 		require.Equal(t, "[5,-4]", out.Results[0].Stdout)
 	})
