@@ -27,7 +27,7 @@ type JudgeRequest struct {
 	Problem     string              `json:"problem"`
 	TestCases   []*problem.TestCase `json:"testcases"`
 	EncodedCode *string             `json:"encodedcode"` // optional base64 encoded code
-	OutputType  string              `json:"outputype"`
+	OutputType  string              `json:"outputtype"`
 }
 
 type JudgeResponse struct {
