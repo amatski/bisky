@@ -1,5 +1,5 @@
 syntax = "proto3";
-package algotrainer.rpc.bisky;
+package algotrainer.rpc;
 option go_package = "algotrainer/rpc/bisky";
 
 service Bisky {

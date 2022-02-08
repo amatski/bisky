@@ -26,7 +26,7 @@ func (s *BiskyServer) Judge(ctx context.Context, req *bisky.JudgeRequest) (*bisk
 
 func main() {
 	twirpHandler := bisky.NewBiskyServer(&BiskyServer{})
-	handler := cors.Default().Handler(twirpHandler)
+	handler := cors.AllowAll().Handler(twirpHandler)
 	mux := http.NewServeMux()
 	// The generated code includes a method, PathPrefix(), which
 	// can be used to mount your service on a mux.
