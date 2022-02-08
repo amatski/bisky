@@ -13,7 +13,6 @@ message JudgeRequest {
   string output_type = 4;
 }
 
-// TestCaseResult
 message TestCaseResult {
   string stdout = 1;
   bool passed = 2;
