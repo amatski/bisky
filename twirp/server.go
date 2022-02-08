@@ -28,8 +28,6 @@ func main() {
 	twirpHandler := bisky.NewBiskyServer(&BiskyServer{})
 	handler := cors.AllowAll().Handler(twirpHandler)
 	mux := http.NewServeMux()
-	// The generated code includes a method, PathPrefix(), which
-	// can be used to mount your service on a mux.
 	mux.Handle(twirpHandler.PathPrefix(), handler)
 	http.ListenAndServe(":8080", mux)
 }
