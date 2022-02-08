@@ -33,7 +33,7 @@ func (s *BiskyServer) Judge(ctx context.Context, req *bisky.JudgeRequest) (*bisk
 	res, err := handler.JudgeSolution(judge.JudgeRequest{
 		Language:    req.Language,
 		EncodedCode: req.EncodedCode,
-		Problem:     "two_sum",
+		Problem:     req.Problem,
 		OutputType:  codegen.Integers,
 		TestCases:   tests,
 	})
