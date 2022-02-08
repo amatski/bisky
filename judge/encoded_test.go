@@ -21,7 +21,7 @@ func TestJudgeSolutionPythonEncoded(t *testing.T) {
 	t.Run("judges correct encoded python solution for 2sum", func(t *testing.T) {
 		out, err := handler.JudgeSolution(JudgeRequest{
 			Language:    codegen.Python,
-			EncodedCode: &twoSumCorrect,
+			EncodedCode: twoSumCorrect,
 			Problem:     "two_sum",
 			TestCases: []*problem.TestCase{
 				{
@@ -41,7 +41,7 @@ func TestJudgeSolutionPythonEncoded(t *testing.T) {
 	t.Run("judges correct encoded python solution for 2sum with multiple test cases", func(t *testing.T) {
 		out, err := handler.JudgeSolution(JudgeRequest{
 			Language:    codegen.Python,
-			EncodedCode: &twoSumCorrect,
+			EncodedCode: twoSumCorrect,
 			Problem:     "two_sum",
 			TestCases: []*problem.TestCase{
 				{
@@ -108,7 +108,7 @@ func TestJudgeSolutionPythonEncoded(t *testing.T) {
 		}
 		out, err := handler.JudgeSolution(JudgeRequest{
 			Language:    codegen.Python,
-			EncodedCode: &twoSumIncorrect,
+			EncodedCode: twoSumIncorrect,
 			Problem:     "two_sum",
 			TestCases:   testCases,
 		})

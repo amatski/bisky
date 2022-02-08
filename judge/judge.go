@@ -26,7 +26,7 @@ type JudgeRequest struct {
 	Code        string              `json:"code"` // their solution
 	Problem     string              `json:"problem"`
 	TestCases   []*problem.TestCase `json:"testcases"`
-	EncodedCode *string             `json:"encodedcode"` // optional base64 encoded code
+	EncodedCode string              `json:"encodedcode"` // optional base64 encoded code
 	OutputType  string              `json:"outputtype"`
 }
 
@@ -69,8 +69,8 @@ func (h *RequestHandler) JudgeSolution(req JudgeRequest) (*JudgeResponse, error)
 
 	solution.InjectValue("tests", testCaseCode)
 
-	if req.EncodedCode != nil {
-		dec, err := b64.StdEncoding.DecodeString(*req.EncodedCode)
+	if req.EncodedCode != "" {
+		dec, err := b64.StdEncoding.DecodeString(req.EncodedCode)
 		if err != nil {
 			return nil, err
 		}
