@@ -31,6 +31,7 @@ func (s *BiskyServer) Judge(ctx context.Context, req *bisky.JudgeRequest) (*bisk
 
 	log.Println("calling res from judge", req, req.TestCases)
 	res, err := handler.JudgeSolution(judge.JudgeRequest{
+		Code:        req.Code,
 		Language:    req.Language,
 		EncodedCode: req.EncodedCode,
 		Problem:     req.Problem,
