@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	"github.com/amatski/bisky/algotrainer/rpc/bisky"
+
+	"github.com/rs/cors"
 )
 
 type BiskyServer struct {
@@ -24,9 +26,10 @@ func (s *BiskyServer) Judge(ctx context.Context, req *bisky.JudgeRequest) (*bisk
 
 func main() {
 	twirpHandler := bisky.NewBiskyServer(&BiskyServer{})
+	handler := cors.Default().Handler(twirpHandler)
 	mux := http.NewServeMux()
 	// The generated code includes a method, PathPrefix(), which
 	// can be used to mount your service on a mux.
-	mux.Handle(twirpHandler.PathPrefix(), twirpHandler)
+	mux.Handle(twirpHandler.PathPrefix(), handler)
 	http.ListenAndServe(":8080", mux)
 }
