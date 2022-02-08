@@ -20,15 +20,22 @@ func (s *BiskyServer) Judge(ctx context.Context, req *bisky.JudgeRequest) (*bisk
 
 	handler := judge.RequestHandler{}
 
-	log.Println("calling res from judge")
+	tests := []*problem.TestCase{}
+
+	for _, test := range req.TestCases {
+		tests = append(tests, &problem.TestCase{
+			Input:          test.Input,
+			ExpectedOutput: test.ExpectedOutput,
+		})
+	}
+
+	log.Println("calling res from judge", req, req.TestCases)
 	res, err := handler.JudgeSolution(judge.JudgeRequest{
 		Language:    req.Language,
 		EncodedCode: req.EncodedCode,
 		Problem:     "two_sum",
 		OutputType:  codegen.Integers,
-		TestCases: []*problem.TestCase{
-			&problem.TestCase{Input: "[1,2,3,4,5]\n5", ExpectedOutput: []string{"[0,1]"}},
-		},
+		TestCases:   tests,
 	})
 
 	log.Println(err, res, "res from judge")
