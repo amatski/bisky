@@ -1,0 +1,25 @@
+syntax = "proto3";
+package algotrainer.rpc.bisky;
+option go_package = "algotrainer/rpc/bisky";
+
+service Bisky {
+  rpc Judge(JudgeRequest) returns (JudgeResponse);
+}
+
+message JudgeRequest {
+  string encoded_code = 1;
+  string language = 2;
+  string problem = 3;
+  string output_type = 4;
+}
+
+// TestCaseResult
+message TestCaseResult {
+  string stdout = 1;
+  bool passed = 2;
+  string elapsed = 3;
+}
+
+message JudgeResponse {
+  repeated TestCaseResult results = 1;
+}
