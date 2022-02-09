@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"log"
+	"fmt"
 	"net/http"
 
 	"github.com/amatski/bisky/algotrainer/rpc/bisky"
@@ -17,21 +17,25 @@ type BiskyServer struct {
 }
 
 func (s *BiskyServer) Judge(ctx context.Context, req *bisky.JudgeRequest) (*bisky.JudgeResponse, error) {
-
 	handler := judge.RequestHandler{}
 
-	log.Println("calling res from judge")
+	tests := []*problem.TestCase{}
+
+	for _, test := range req.TestCases {
+		tests = append(tests, &problem.TestCase{
+			Input:          test.Input,
+			ExpectedOutput: test.ExpectedOutput,
+		})
+	}
+
 	res, err := handler.JudgeSolution(judge.JudgeRequest{
+		Code:        req.Code,
 		Language:    req.Language,
 		EncodedCode: req.EncodedCode,
-		Problem:     "two_sum",
+		Problem:     req.Problem,
 		OutputType:  codegen.Integers,
-		TestCases: []*problem.TestCase{
-			&problem.TestCase{Input: "[1,2,3,4,5]\n5", ExpectedOutput: []string{"[0,1]"}},
-		},
+		TestCases:   tests,
 	})
-
-	log.Println(err, res, "res from judge")
 
 	if err != nil {
 		return nil, err
@@ -42,12 +46,10 @@ func (s *BiskyServer) Judge(ctx context.Context, req *bisky.JudgeRequest) (*bisk
 		ress = append(ress, &bisky.TestCaseResult{
 			Stdout:  v.Stdout,
 			Passed:  v.Passed,
-			Elapsed: "",
+			Elapsed: fmt.Sprintf("%v", v.Elapsed),
 		})
 
 	}
-
-	log.Println(ress)
 
 	return &bisky.JudgeResponse{
 		Results: ress,

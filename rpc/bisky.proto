@@ -11,6 +11,13 @@ message JudgeRequest {
   string language = 2;
   string problem = 3;
   string output_type = 4;
+  string code = 5;
+  repeated TestCase test_cases = 6;
+}
+
+message TestCase {
+  string input = 1;
+  repeated string expected_output = 2;
 }
 
 message TestCaseResult {

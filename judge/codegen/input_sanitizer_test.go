@@ -31,4 +31,6 @@ func TestIsNumberList(t *testing.T) {
 	assert.Equal(t, "-1,-1", isNumberList("[-1,-1]").Elements)
 	assert.Nil(t, isNumberList("[ 0, -1, - 2 ]"))
 	assert.Nil(t, isNumberList("[ 0, -1, 2., 3 ]"))
+	assert.NotNil(t, isNumberList("[1 2 3]"))
+	assert.Equal(t, "1 2 3", isNumberList("[1 2 3]").Elements)
 }
