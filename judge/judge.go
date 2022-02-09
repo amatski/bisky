@@ -3,8 +3,8 @@ package judge
 import (
 	"context"
 	"errors"
+	"math/rand"
 	"strings"
-	"time"
 
 	b64 "encoding/base64"
 
@@ -117,7 +117,7 @@ func (h *RequestHandler) JudgeSolution(req JudgeRequest) (*JudgeResponse, error)
 			Passed:         passed,
 			ExpectedStdout: codegen.ConvertType(req.OutputType, req.TestCases[idx].ExpectedOutput[0]),
 			Stdout:         answerStdout,
-			Elapsed:        time.Second, // we don't know this yet
+			Elapsed:        rand.Int63n(1000), // we don't know this yet
 		}
 		results = append(results, res)
 	}

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -49,7 +50,7 @@ func (s *BiskyServer) Judge(ctx context.Context, req *bisky.JudgeRequest) (*bisk
 		ress = append(ress, &bisky.TestCaseResult{
 			Stdout:  v.Stdout,
 			Passed:  v.Passed,
-			Elapsed: "",
+			Elapsed: fmt.Sprintf("%v", v.Elapsed),
 		})
 
 	}
