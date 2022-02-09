@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/amatski/bisky/algotrainer/rpc/bisky"
@@ -29,7 +28,6 @@ func (s *BiskyServer) Judge(ctx context.Context, req *bisky.JudgeRequest) (*bisk
 		})
 	}
 
-	log.Println("calling res from judge", req, req.TestCases)
 	res, err := handler.JudgeSolution(judge.JudgeRequest{
 		Code:        req.Code,
 		Language:    req.Language,
@@ -38,8 +36,6 @@ func (s *BiskyServer) Judge(ctx context.Context, req *bisky.JudgeRequest) (*bisk
 		OutputType:  codegen.Integers,
 		TestCases:   tests,
 	})
-
-	log.Println(err, res, "res from judge")
 
 	if err != nil {
 		return nil, err
@@ -54,8 +50,6 @@ func (s *BiskyServer) Judge(ctx context.Context, req *bisky.JudgeRequest) (*bisk
 		})
 
 	}
-
-	log.Println(ress)
 
 	return &bisky.JudgeResponse{
 		Results: ress,
