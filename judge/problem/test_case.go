@@ -8,7 +8,8 @@ type TestCase struct {
 }
 
 type TestCaseResult struct {
-	Stdout  string // their original stdout
-	Passed  bool
-	Elapsed time.Duration // time it took to run test case
+	Stdout         string // their original stdout
+	ExpectedStdout string
+	Passed         bool
+	Elapsed        time.Duration // time it took to run test case
 }

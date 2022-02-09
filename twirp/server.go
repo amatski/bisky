@@ -17,7 +17,6 @@ type BiskyServer struct {
 }
 
 func (s *BiskyServer) Judge(ctx context.Context, req *bisky.JudgeRequest) (*bisky.JudgeResponse, error) {
-
 	handler := judge.RequestHandler{}
 
 	tests := []*problem.TestCase{}
