@@ -44,9 +44,11 @@ func (s *BiskyServer) Judge(ctx context.Context, req *bisky.JudgeRequest) (*bisk
 	ress := []*bisky.TestCaseResult{}
 	for _, v := range res.Results {
 		ress = append(ress, &bisky.TestCaseResult{
-			Stdout:  v.Stdout,
-			Passed:  v.Passed,
-			Elapsed: fmt.Sprintf("%v", v.Elapsed),
+			Input:          v.Input, // test case input
+			ExpectedOutput: v.ExpectedOutput,
+			Stdout:         v.Stdout, // their output
+			Passed:         v.Passed,
+			Elapsed:        fmt.Sprintf("%v", v.Elapsed),
 		})
 
 	}

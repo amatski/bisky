@@ -24,6 +24,8 @@ message TestCaseResult {
   string stdout = 1;
   bool passed = 2;
   string elapsed = 3;
+  string input = 4; // test input
+  string expected_output = 5; // test expected out
 }
 
 message JudgeResponse {

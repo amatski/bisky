@@ -114,8 +114,9 @@ func (h *RequestHandler) JudgeSolution(req JudgeRequest) (*JudgeResponse, error)
 		}
 
 		res := problem.TestCaseResult{
+			Input:          req.TestCases[idx].Input,
 			Passed:         passed,
-			ExpectedStdout: codegen.ConvertType(req.OutputType, req.TestCases[idx].ExpectedOutput[0]),
+			ExpectedOutput: codegen.ConvertType(req.OutputType, req.TestCases[idx].ExpectedOutput[0]),
 			Stdout:         answerStdout,
 			Elapsed:        rand.Int63n(1000), // we don't know this yet
 		}
