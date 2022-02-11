@@ -106,8 +106,10 @@ func (h *RequestHandler) JudgeSolution(req JudgeRequest) (*JudgeResponse, error)
 	for idx, answerStdout := range answers {
 		// should match testCases[idx].ExpectedOutput
 		passed := false
+		var convertedExpected string
 		for _, expected := range req.TestCases[idx].ExpectedOutput {
-			if codegen.ConvertType(req.OutputType, expected) == answerStdout {
+			convertedExpected = codegen.ConvertType(req.OutputType, expected)
+			if convertedExpected == answerStdout {
 				passed = true
 				break
 			}
@@ -116,7 +118,7 @@ func (h *RequestHandler) JudgeSolution(req JudgeRequest) (*JudgeResponse, error)
 		res := problem.TestCaseResult{
 			Input:          req.TestCases[idx].Input,
 			Passed:         passed,
-			ExpectedOutput: codegen.ConvertType(req.OutputType, req.TestCases[idx].ExpectedOutput[0]),
+			ExpectedOutput: convertedExpected,
 			Stdout:         answerStdout,
 			Elapsed:        rand.Int63n(1000), // we don't know this yet
 		}
